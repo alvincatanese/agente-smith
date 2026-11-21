@@ -12,8 +12,10 @@
 <link rel="apple-touch-icon" sizes="180x180" href="icone/negozi-v7-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icone/negozi-v7-192.png">
 <style>
-  html,body{margin:0;height:100%;background:#071C2F;font-family:-apple-system,"Segoe UI",Roboto,sans-serif;color:#fff}
-  iframe{border:0;width:100%;height:100vh;height:100dvh;display:block;background:#F2F5F8}
+  /* pagina ferma: la dashboard scorre dentro l'iframe, e senza questo iOS faceva rimbalzare tutto (barre comprese) */
+  html,body{margin:0;height:100%;overflow:hidden;overscroll-behavior:none;background:#071C2F;font-family:-apple-system,"Segoe UI",Roboto,sans-serif;color:#fff}
+  body{position:fixed;inset:0}
+  iframe{border:0;position:fixed;inset:0;width:100%;height:100%;display:block;background:#F2F5F8}
   p{padding:24px;margin:0}
 </style>
 </head>
