@@ -30,7 +30,7 @@
   var f = document.createElement('iframe');
   f.title = 'Dashboard';
   f.allow = 'clipboard-write';
-  f.src = DEPLOY + '?k=' + k + (p.get('apri') === 'report' ? '&apri=report' : '') + (p.get('tema') ? '&tema=' + encodeURIComponent(p.get('tema')) : '');
+  f.src = DEPLOY + '?k=' + k + (p.get('apri') === 'report' ? '&apri=report' : '') + (p.get('tema') ? '&tema=' + encodeURIComponent(p.get('tema')) : '') + '&via=nuovo' + (p.get('da') === 'pano' ? '&da=pano' : '');
   document.body.appendChild(f);
   window.addEventListener('message', function (e) {
     if (!/\.googleusercontent\.com$/.test(new URL(e.origin).hostname)) return;
