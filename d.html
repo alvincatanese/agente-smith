@@ -5,22 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
-<meta name="theme-color" content="#F5F2E5">
+<meta name="theme-color" content="#071C2F">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Dashboard">
 <title>Dashboard</title>
 <link rel="apple-touch-icon" sizes="180x180" href="icone/negozi-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icone/negozi-192.png">
 <style>
-  html,body{margin:0;height:100%;background:#E1DDC7;font-family:-apple-system,"Segoe UI",Roboto,sans-serif;color:#2A2E2C}
-  iframe{border:0;width:100%;height:100vh;height:100dvh;display:block}
+  html,body{margin:0;height:100%;background:#071C2F;font-family:-apple-system,"Segoe UI",Roboto,sans-serif;color:#fff}
+  iframe{border:0;width:100%;height:100vh;height:100dvh;display:block;background:#F2F5F8}
   p{padding:24px;margin:0}
 </style>
 </head>
 <body>
-<!-- Contenitore delle dashboard dei negozi: la mostra dentro questa pagina, cosi' Google non aggiunge in alto
-     la scritta "Questa applicazione e' stata creata da un utente di Google Apps Script".
-     La chiave sta dopo il # e non arriva a questo sito: la riceve solo Google, come col link diretto. -->
+<!-- Contenitore delle dashboard dei negozi e della Panoramica: la mostra dentro questa pagina, cosi' Google non
+     aggiunge la scritta in alto. La chiave sta dopo il # e non arriva a questo sito. Se la dashboard avvisa che
+     c'e' una versione nuova, il contenitore si ricarica da solo restando qui. -->
 <script>
 (function () {
   var DEPLOY = 'https://script.google.com/macros/s/AKfycbxv9ZkBkTkEoEdv7bYV4fXkHlZZab7F5Lm4EoDUKZx-tKeqTTD28s_w7n6TOtct5Xre/exec';
@@ -30,8 +30,12 @@
   var f = document.createElement('iframe');
   f.title = 'Dashboard';
   f.allow = 'clipboard-write';
-  f.src = DEPLOY + '?k=' + k + (p.get('apri') === 'report' ? '&apri=report' : '') + (p.get('tema') ? '&tema=' + encodeURIComponent(p.get('tema')) : '');
+  f.src = DEPLOY + '?k=' + k + (p.get('apri') === 'report' ? '&apri=report' : '');
   document.body.appendChild(f);
+  window.addEventListener('message', function (e) {
+    if (!/\.googleusercontent\.com$/.test(new URL(e.origin).hostname)) return;
+    if (e.data && e.data.dashboard === 'ricarica') location.reload();
+  });
 })();
 </script>
 </body>
