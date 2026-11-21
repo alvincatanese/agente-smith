@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#071C2F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Dashboard">
+<title>Dashboard (prova)</title>
+<link rel="apple-touch-icon" sizes="180x180" href="icone/negozi-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icone/negozi-192.png">
+<style>
+  html,body{margin:0;height:100%;background:#071C2F;font-family:-apple-system,"Segoe UI",Roboto,sans-serif;color:#fff}
+  iframe{border:0;width:100%;height:100vh;height:100dvh;display:block;background:#F2F5F8}
+  p{padding:24px;margin:0}
+</style>
+</head>
+<body>
+<!-- Contenitore della COPIA DI PROVA della dashboard negozio (nuova grafica). Come d.html, ma punta al
+     deployment di prova. La chiave sta dopo il # e non arriva a questo sito. Se la dashboard avvisa che
+     c'e' una versione nuova, il contenitore si ricarica da solo restando qui. -->
+<script>
+(function () {
+  var DEPLOY = 'https://script.google.com/macros/s/AKfycbwPAhcI79tlWYe7LsVar-TwTjwRK1LhNLSxAC_qppWzn_9mBRXKgNoT5orC1kdAqcKg/exec';
+  var p = new URLSearchParams(location.hash.slice(1));
+  var k = (p.get('k') || '').replace(/[^0-9a-f]/gi, '');
+  if (!k) { document.body.innerHTML = '<p>Link non valido.</p>'; return; }
+  var f = document.createElement('iframe');
+  f.title = 'Dashboard';
+  f.allow = 'clipboard-write';
+  f.src = DEPLOY + '?k=' + k + (p.get('apri') === 'report' ? '&apri=report' : '');
+  document.body.appendChild(f);
+  window.addEventListener('message', function (e) {
+    if (!/\.googleusercontent\.com$/.test(new URL(e.origin).hostname)) return;
+    if (e.data && e.data.dashboard === 'ricarica') location.reload();
+  });
+})();
+</script>
+</body>
+</html>
